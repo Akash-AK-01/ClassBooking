@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user, onLogout }) => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-    <div className="container">
+    <div className="container-fluid">
       <Link className="navbar-brand fw-bold fs-4" to="/">
         <i className="bi bi-building me-2"></i>🏫 ClassBookings
       </Link>
@@ -23,55 +23,76 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => (
       </button>
       
       <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ms-auto">
+        {user && (
+          <div className="navbar-nav me-auto">
+            <span className="navbar-text text-white">
+              <i className="bi bi-person-circle me-1"></i>
+              Welcome, {user.name || user.email} ({user.role})
+            </span>
+          </div>
+        )}
+        
+        <div className="navbar-nav ms-auto d-none d-lg-flex">
           {user ? (
             <>
-                             <li className="nav-item">
-                 <span className="navbar-text text-white me-3">
-                   <i className="bi bi-person-circle me-1"></i>
-                   Welcome, {user.name || user.email} ({user.role})
-                 </span>
-               </li>
-              {user.role === 'student' && (
-                <li className="nav-item">
-                  <Link className="nav-link btn btn-outline-light btn-sm me-2" to="/student">
-                    <i className="bi bi-book me-1"></i>My Classes
-                  </Link>
-                </li>
-              )}
               {user.role === 'admin' && (
                 <>
-                  <li className="nav-item">
-                    <Link className="nav-link btn btn-outline-light btn-sm me-2" to="/admin">
-                      <i className="bi bi-speedometer2 me-1"></i>Admin Dashboard
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link btn btn-outline-light btn-sm me-2" to="/admin/students">
-                      <i className="bi bi-people me-1"></i>Students
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link btn btn-outline-light btn-sm me-2" to="/admin/trainers">
-                      <i className="bi bi-person-badge me-1"></i>Trainers
-                    </Link>
-                  </li>
+                  <Link className="nav-link text-white fw-semibold" to="/admin">
+                    Admin Dashboard
+                  </Link>
+                  <Link className="nav-link text-white fw-semibold" to="/admin/students">
+                    Students
+                  </Link>
+                  <Link className="nav-link text-white fw-semibold" to="/admin/trainers">
+                    Trainers
+                  </Link>
                 </>
               )}
-              <li className="nav-item">
-                <button className="btn btn-outline-light btn-sm" onClick={onLogout}>
-                  <i className="bi bi-box-arrow-right me-1"></i>Logout
-                </button>
-              </li>
+              {user.role === 'student' && (
+                <Link className="nav-link text-white fw-semibold" to="/student">
+                  My Classes
+                </Link>
+              )}
+              <button className="btn btn-outline-light btn-sm ms-2" onClick={onLogout}>
+                <i className="bi bi-box-arrow-right me-1"></i>Logout
+              </button>
             </>
           ) : (
-            <li className="nav-item">
-              <Link className="btn btn-outline-light btn-sm" to="/login">
-                <i className="bi bi-box-arrow-in-right me-1"></i>Login
-              </Link>
-            </li>
+            <Link className="btn btn-outline-light btn-sm" to="/login">
+              <i className="bi bi-box-arrow-in-right me-1"></i>Login
+            </Link>
           )}
-        </ul>
+        </div>
+        
+        {/* Mobile Menu */}
+        <div className="navbar-nav ms-auto d-lg-none">
+          {user && (
+            <div className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle text-white fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                <i className="bi bi-list"></i> Menu
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end">
+                {user.role === 'admin' && (
+                  <>
+                    <li><Link className="dropdown-item" to="/admin">Admin Dashboard</Link></li>
+                    <li><Link className="dropdown-item" to="/admin/students">Students</Link></li>
+                    <li><Link className="dropdown-item" to="/admin/trainers">Trainers</Link></li>
+                    <li><hr className="dropdown-divider" /></li>
+                  </>
+                )}
+                {user.role === 'student' && (
+                  <>
+                    <li><Link className="dropdown-item" to="/student">My Classes</Link></li>
+                    <li><hr className="dropdown-divider" /></li>
+                  </>
+                )}
+                <li><button className="dropdown-item" onClick={onLogout}>
+                  <i className="bi bi-box-arrow-right me-2"></i>Logout
+                </button></li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   </nav>

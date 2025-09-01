@@ -7,12 +7,13 @@ interface Props {
   onCancel?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
+  onTrainerClick?: () => void;
   booked?: boolean;
   isFull?: boolean;
   isAdmin?: boolean;
 }
 
-const ClassCard: React.FC<Props> = ({ session, onBook, onCancel, onEdit, onDelete, booked, isFull, isAdmin }) => {
+const ClassCard: React.FC<Props> = ({ session, onBook, onCancel, onEdit, onDelete, onTrainerClick, booked, isFull, isAdmin }) => {
   const availableSeats = session.capacity - session.booked;
   const isAlmostFull = availableSeats <= 3 && availableSeats > 0;
   
@@ -31,9 +32,31 @@ const ClassCard: React.FC<Props> = ({ session, onBook, onCancel, onEdit, onDelet
         <div className="row">
           <div className="col-md-8">
             <p className="card-text">
-              <strong>👨‍🏫 Trainer:</strong> {session.trainerName}<br />
+              <strong>👨‍💼 Trainer:</strong> 
+              {onTrainerClick ? (
+                <button
+                  className="btn btn-link p-0 text-decoration-none fw-semibold"
+                  onClick={onTrainerClick}
+                  style={{ 
+                    color: '#3b82f6',
+                    fontWeight: '600',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#1d4ed8';
+                    e.currentTarget.style.textDecoration = 'underline';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = '#3b82f6';
+                    e.currentTarget.style.textDecoration = 'none';
+                  }}
+                >
+                  {session.trainerName}
+                </button>
+              ) : (
+                session.trainerName
+              )}<br />
               <strong>📅 Date & Time:</strong> {new Date(session.dateTime).toLocaleString()}<br />
-              <strong>💰 Fees:</strong> {session.fees}<br />
               <strong>💺 Seats:</strong> {session.booked}/{session.capacity} 
               <span className="text-muted"> ({availableSeats} available)</span>
             </p>
@@ -96,6 +119,23 @@ const ClassCard: React.FC<Props> = ({ session, onBook, onCancel, onEdit, onDelet
                       onBook();
                     }
                   }}
+                  style={{
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    border: 'none',
+                    borderRadius: '12px',
+                    padding: '10px 20px',
+                    fontWeight: '600',
+                    boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)';
+                  }}
                 >
                   📚 Book Seat
                 </button>
@@ -107,6 +147,21 @@ const ClassCard: React.FC<Props> = ({ session, onBook, onCancel, onEdit, onDelet
                     if (window.confirm(`Are you sure you want to cancel your booking for "${session.courseName}"?`)) {
                       onCancel();
                     }
+                  }}
+                  style={{
+                    borderRadius: '12px',
+                    padding: '10px 20px',
+                    fontWeight: '600',
+                    boxShadow: '0 2px 8px rgba(255, 193, 7, 0.3)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(255, 193, 7, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(255, 193, 7, 0.3)';
                   }}
                 >
                   ❌ Cancel Booking

@@ -19,6 +19,24 @@ export const mockClasses: ClassSession[] = [
     capacity: 25,
     booked: 25,
   },
+  {
+    id: '3',
+    courseName: 'SQL',
+    trainerName: 'Mr. David',
+    dateTime: '2025-09-15T11:00',
+    fees: 'Free',
+    capacity: 20,
+    booked: 8,
+  },
+  {
+    id: '4',
+    courseName: 'Java',
+    trainerName: 'Ms. Lisa',
+    dateTime: '2025-09-18T09:00',
+    fees: 'Free',
+    capacity: 35,
+    booked: 15,
+  },
 ];
 
 export const mockBookings: Booking[] = [

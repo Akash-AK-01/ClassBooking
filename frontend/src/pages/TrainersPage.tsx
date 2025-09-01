@@ -6,14 +6,17 @@ interface Trainer {
   email: string;
   phone: string;
   specialization: string;
+  workExperience: string;
 }
 
 const TrainersPage: React.FC = () => {
   const [trainers, setTrainers] = React.useState<Trainer[]>([
-    { id: '1', name: 'Ms. Sarah', email: 'sarah@example.com', phone: '+1234567890', specialization: 'Full Stack Development' },
-    { id: '2', name: 'Mr. John', email: 'john@example.com', phone: '+1234567891', specialization: 'Python Programming' }
+    { id: '1', name: 'Ms. Sarah', email: 'sarah@example.com', phone: '+1234567890', specialization: 'Full Stack Development', workExperience: '5 years' },
+    { id: '2', name: 'Mr. John', email: 'john@example.com', phone: '+1234567891', specialization: 'Python Programming', workExperience: '3 years' },
+    { id: '3', name: 'Mr. David', email: 'david@example.com', phone: '+1234567892', specialization: 'Database Management', workExperience: '7 years' },
+    { id: '4', name: 'Ms. Lisa', email: 'lisa@example.com', phone: '+1234567893', specialization: 'Java Development', workExperience: '4 years' }
   ]);
-  const [newTrainer, setNewTrainer] = React.useState({ name: '', email: '', phone: '', specialization: '' });
+  const [newTrainer, setNewTrainer] = React.useState({ name: '', email: '', phone: '', specialization: '', workExperience: '' });
 
   function handleAddTrainer(e: React.FormEvent) {
     e.preventDefault();
@@ -22,7 +25,7 @@ const TrainersPage: React.FC = () => {
       return;
     }
     setTrainers([...trainers, { ...newTrainer, id: Date.now().toString() }]);
-    setNewTrainer({ name: '', email: '', phone: '', specialization: '' });
+    setNewTrainer({ name: '', email: '', phone: '', specialization: '', workExperience: '' });
   }
 
   function handleDeleteTrainer(trainerId: string) {
@@ -36,7 +39,7 @@ const TrainersPage: React.FC = () => {
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <h2 className="mb-4">🏋️ Trainers Management</h2>
+          <h2 className="mb-4">👨‍💼 Trainers Management</h2>
           
           {/* Add Trainer Form */}
           <div className="card mb-4">
@@ -86,6 +89,16 @@ const TrainersPage: React.FC = () => {
                       required
                     />
                   </div>
+                  <div className="col-md-6 mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Work Experience (e.g., 5 years)"
+                      value={newTrainer.workExperience}
+                      onChange={e => setNewTrainer({...newTrainer, workExperience: e.target.value})}
+                      required
+                    />
+                  </div>
                   <div className="col-12">
                     <button 
                       type="submit" 
@@ -123,6 +136,7 @@ const TrainersPage: React.FC = () => {
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Specialization</th>
+                        <th>Experience</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -133,6 +147,7 @@ const TrainersPage: React.FC = () => {
                           <td>{trainer.email}</td>
                           <td>{trainer.phone}</td>
                           <td>{trainer.specialization}</td>
+                          <td>{trainer.workExperience}</td>
                           <td>
                             <button 
                               className="btn btn-danger btn-sm"
