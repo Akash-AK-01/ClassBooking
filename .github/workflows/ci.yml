@@ -47,35 +47,3 @@ jobs:
         name: build-files-${{ matrix.node-version }}
         path: frontend/dist/
         retention-days: 7
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'npm'
-        
-    - name: Install root dependencies
-      run: npm ci
-      
-    - name: Install frontend dependencies
-      run: npm ci
-      working-directory: ./frontend
-      
-    - name: Build project
-      run: npm run build
-      
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./frontend/dist
-        cname: your-domain.com # Optional: replace with your custom domain
