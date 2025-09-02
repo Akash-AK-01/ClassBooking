@@ -7,12 +7,13 @@ import { Student, ClassSession } from '../types';
 
 const AdminDashboard: React.FC = () => {
   const { classes, bookings, setClasses } = useBookings();
-  const [students] = React.useState<Student[]>([
-    { id: '1', email: 'john.doe@email.com', name: 'John Doe', phone: '+1234567890' },
-    { id: '2', email: 'jane.smith@email.com', name: 'Jane Smith', phone: '+1234567891' },
-    { id: '3', email: 'mike.wilson@email.com', name: 'Mike Wilson', phone: '+1234567892' },
-    { id: '4', email: 'sarah.johnson@email.com', name: 'Sarah Johnson', phone: '+1234567893' }
-  ]);
+    const [students] = React.useState<Student[]>([
+      { id: '1', email: 'john.doe@email.com', name: 'John Doe', phone: '+1234567890', password: 'password123' },
+      { id: '2', email: 'jane.smith@email.com', name: 'Jane Smith', phone: '+1234567891', password: 'password456' },
+      { id: '3', email: 'mike.wilson@email.com', name: 'Mike Wilson', phone: '+1234567892', password: 'password789' },
+      { id: '4', email: 'sarah.johnson@email.com', name: 'Sarah Johnson', phone: '+1234567893', password: 'password321' }
+    ]);
+  
   const [selectedStudent, setSelectedStudent] = React.useState<Student | null>(null);
   const [editingClass, setEditingClass] = React.useState<ClassSession | null>(null);
 
