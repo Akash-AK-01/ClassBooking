@@ -4,6 +4,15 @@ import businessPeopleImage from '../components/assets/business-people-illustrati
 import './LoginPage.css';
 import { loginUser, registerUser } from '../../Api';
 
+// Error type for API responses
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
+
 interface Props {
   onLogin: (email: string, password: string, role: 'student' | 'admin', name: string, dateOfBirth?: string) => void;
 }
@@ -41,9 +50,10 @@ async function handleSubmit(e: React.FormEvent) {
       if (role === 'admin') navigate('/admin');
       else navigate('/student');
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     // 3. If email already exists, fallback to login
-    if (err.response) {
+    const apiError = err as ApiError;
+    if (apiError?.response) {
       try {
         const loginResponse = await loginUser({ email, password });
         console.log('Login response:', loginResponse);
@@ -53,11 +63,12 @@ async function handleSubmit(e: React.FormEvent) {
           if (role === 'admin') navigate('/admin');
           else navigate('/student');
         }
-      } catch (loginError: any) {
-        setError(loginError.response?.data?.message || 'Login failed');
+      } catch (loginError: unknown) {
+        const loginApiError = loginError as ApiError;
+        setError(loginApiError?.response?.data?.message || 'Login failed');
       }
     } else {
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(apiError?.response?.data?.message || 'Registration failed');
     }
   } finally {
     setLoading(false);
