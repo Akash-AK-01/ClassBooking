@@ -37,7 +37,7 @@ It is built with **React + TypeScript + Vite** and provides a user interface for
 
 ---
 
-## 📂 Project Structure
+📂 Project Structure
 
 frontend/
 ├── src/
