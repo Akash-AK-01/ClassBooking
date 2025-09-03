@@ -1,6 +1,7 @@
 # ClassBooking – Frontend
 
-This is the **frontend application** for the ClassBooking project (L2 assignment).  
+This is the **frontend application** for the ClassBooking project (L2 assignment). 
+The Class Booking Project is a web application that allows users to book classes and manage their schedules.
 It is built with **React + TypeScript + Vite** and provides a user interface for both **students** and **admins** to manage class bookings.
 
 ---
@@ -37,6 +38,21 @@ It is built with **React + TypeScript + Vite** and provides a user interface for
 
 ---
 
+## Getting Started
+To get started with the project, follow these steps:
+
+1.Clone the repository: git clone https://github.com/your-username/class-booking.git
+2.Install dependencies: npm install
+3.Start the development server: npm start
+4.Open the application in your web browser: http://localhost:3000
+
+---
+
+## API Documentation
+The API documentation is available at http://localhost:3000/api/docs.
+
+---
+
 📂 Project Structure
 
 frontend/
@@ -63,3 +79,8 @@ frontend/
 ├── vite.config.ts
 ├── index.html
 └── tsconfig.json
+
+---
+Acknowledgments
+Akash k - Creator and maintainer of the project
+
