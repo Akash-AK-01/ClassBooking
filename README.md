@@ -53,7 +53,7 @@ The API documentation is available at http://localhost:3000/api/docs.
 
 ---
 
-📂 Project Structure
+ ## 📂 Project Structure
 
 frontend/
 ├── src/
@@ -81,6 +81,6 @@ frontend/
 └── tsconfig.json
 
 ---
-Acknowledgments
+## Acknowledgments
 Akash k - Creator and maintainer of the project
 
